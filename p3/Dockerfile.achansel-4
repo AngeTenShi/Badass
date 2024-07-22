@@ -1,0 +1,18 @@
+FROM frrouting/frr
+
+RUN apk add iproute2
+
+RUN sed -i 's/bgpd=no/bgpd=yes/' /etc/frr/daemons && \
+    sed -i 's/ospfd=no/ospfd=yes/' /etc/frr/daemons && \
+    sed -i 's/isisd=no/isisd=yes/' /etc/frr/daemons && \
+    echo 'zebra=yes' >> /etc/frr/daemons
+    
+
+RUN    touch /etc/frr/vtysh.conf
+
+COPY conf/router4.conf ./router4.conf
+COPY scripts/achansel-4.sh ./achansel-4.sh
+SHELL ["/bin/busybox", "ash", "-c"]
+
+CMD /usr/lib/frr/frrinit.sh start && sh achansel-4.sh && vtysh -f router4.conf && tail -f /dev/null
+    
