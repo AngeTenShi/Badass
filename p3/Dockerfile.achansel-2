@@ -7,9 +7,6 @@ RUN sed -i 's/bgpd=no/bgpd=yes/' /etc/frr/daemons && \
     sed -i 's/isisd=no/isisd=yes/' /etc/frr/daemons && \
     echo 'zebra=yes' >> /etc/frr/daemons
     
-
-RUN    touch /etc/frr/vtysh.conf
-
 COPY conf/router2.conf ./router2.conf
 COPY scripts/achansel-2.sh ./achansel-2.sh
 SHELL ["/bin/busybox", "ash", "-c"]

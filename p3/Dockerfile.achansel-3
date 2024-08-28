@@ -7,9 +7,6 @@ RUN sed -i 's/bgpd=no/bgpd=yes/' /etc/frr/daemons && \
     sed -i 's/isisd=no/isisd=yes/' /etc/frr/daemons && \
     echo 'zebra=yes' >> /etc/frr/daemons
     
-
-RUN    touch /etc/frr/vtysh.conf
-
 COPY conf/router3.conf ./router3.conf
 COPY scripts/achansel-3.sh ./achansel-3.sh
 
